@@ -1,6 +1,4 @@
 # Import everything needed to edit video clips
-from asyncio import threads
-from concurrent.futures import thread
 from moviepy.editor import *
 import shutil
 import openpyxl
@@ -9,7 +7,7 @@ import os
 # Getting input data of clip name and timestamp locations
 #####
 # Location of spreadsheet
-loc = ('C:/Users/keelo/source/repos/pgmVideoClips/footage/014_A_annotations.xlsx')
+loc = input("Enter absolute path of spreadsheet: ")
 # Open workbook
 wb_obj = openpyxl.load_workbook(loc, data_only=True)
 sheet_obj = wb_obj.active
@@ -34,7 +32,7 @@ for i in range(rowCount, sheet_obj.max_row+1):
     if (sheet_obj.cell(row=rowCount, column=1).value == "N"):
 
         clip = VideoFileClip(
-            'C:/Users/keelo/source/repos/pgmVideoClips/footage/' + vidName)
+            os.path.abspath('Main/') + "\\" + vidName)
 
         # getting only video between timestamp 1 and 2 as strings
         clip = clip.subclip(str(tStart.value), str(tEnd.value))
@@ -45,13 +43,14 @@ for i in range(rowCount, sheet_obj.max_row+1):
 
         #####################
         # Move the clip to correct folder
-        destination = 'C:/Users/keelo/source/repos/pgmVideoClips/Clips'
-        dest = shutil.move(
-            'C:/Users/keelo/source/repos/pgmVideoClips/' + clipName, destination, copy_function=shutil.copytree)
+        pgmsource = os.path.abspath(__package__) + "\\"
+        
+        destination = os.path.abspath('Clips/')
+        dest = shutil.move(pgmsource + clipName, destination, copy_function=shutil.copytree)
 
         # Change Clip Flag
         cfloc.value = "Y"
-        wb_obj.save('C:/Users/keelo/source/repos/pgmVideoClips/footage/014_A_annotations.xlsx')
+        wb_obj.save(loc)
     else:
          continue
     
