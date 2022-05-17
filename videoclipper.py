@@ -18,7 +18,7 @@ rowCount = 3
 
 ## Retreiving Clip ##
 # loading video gfg
-vidName = input("Enter video name and extension: ")
+vidName = input("Enter video name and extension:  ")
 
 
 for i in range(rowCount, sheet_obj.max_row+1):
