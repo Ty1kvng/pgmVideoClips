@@ -1,5 +1,5 @@
 # Import everything needed to edit video clips
-from moviepy.editor import *
+from moviepy.editor import VideoFileClip
 import shutil
 import openpyxl
 import os
