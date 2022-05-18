@@ -28,3 +28,7 @@ Place spreadsheet and .mp4 file into the folder '/Main'
 
 # Demo
 ![pgmVIdeoClipperdemo](https://user-images.githubusercontent.com/59584473/169143437-36be22ba-f48d-4922-8ab2-cb2a5ccd6af2.gif)
+
+# Spreadsheet Example
+![pgmVideoClipper_capture](https://user-images.githubusercontent.com/59584473/169146465-1a331c3e-1100-4bd7-b131-7ded0f9e1640.png)
+*Captured during encoding progress*
