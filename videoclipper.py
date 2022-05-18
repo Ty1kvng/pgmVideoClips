@@ -1,4 +1,7 @@
 # Import everything needed to edit video clips
+from importlib.resources import path
+import inspect
+from modulefinder import packagePathMap
 from moviepy.editor import VideoFileClip
 import shutil
 import openpyxl
@@ -21,14 +24,14 @@ vidName = input("Enter video name and extension:  ")
 
 for i in range(rowCount, sheet_obj.max_row+1):
     rowCount = i
-    
+
     # Set start and end times of timestamp
     tStart = sheet_obj.cell(row=rowCount, column=4)
     tEnd = sheet_obj.cell(row=rowCount, column=5)
-    
-    # Set lcoation of clip flags
+
+    # Set location of clip flags
     cfloc = sheet_obj.cell(row=rowCount, column=1)
-    
+
     if (sheet_obj.cell(row=rowCount, column=1).value == "N"):
 
         clip = VideoFileClip(
@@ -40,20 +43,25 @@ for i in range(rowCount, sheet_obj.max_row+1):
         clipName = (str(sheet_obj.cell(row=rowCount, column=2).value) +
                     "_" + (str(tStart.value))[:-4].replace(":", ".") + ".mp4")
         clip.write_videofile(clipName)
+        
+        # Save new clipName to spreadsheet clipName
+        fileNameLoc = sheet_obj.cell(row=rowCount, column=2)
+        fileNameLoc.value = clipName
+
 
         #####################
         # Move the clip to correct folder
-        pgmsource = os.path.abspath(__package__) + "\\"
-        
+        pgmsource = (os.path.dirname(os.path.abspath(
+            inspect.getfile(inspect.currentframe())))) + "\\"
+
         destination = os.path.abspath('Clips/')
-        dest = shutil.move(pgmsource + clipName, destination, copy_function=shutil.copytree)
+        dest = shutil.move(pgmsource + clipName, destination,
+                           copy_function=shutil.copytree)
 
         # Change Clip Flag
         cfloc.value = "Y"
         wb_obj.save(loc)
     else:
-         continue
-    
-print("End of spreedsheet!")
+        continue
 
-### Add to filename of spreadsheet feature ###
+print("End of spreedsheet!")
