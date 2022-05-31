@@ -1,5 +1,4 @@
 # pgmVideoClips
-This is a Python program used to clip video clips using MoviePY.
 
 # Run the following to install and update pip
 ```python
