@@ -32,7 +32,7 @@ for i in range(rowCount, sheet_obj.max_row+1):
     # Set location of clip flags
     cfloc = sheet_obj.cell(row=rowCount, column=1)
 
-    if (sheet_obj.cell(row=rowCount, column=1).value == "N"):
+    if ((sheet_obj.cell(row=rowCount, column=1).value == "N") and (sheet_obj.cell(row=rowCount, column=6).value != "00:00:00.000")):
 
         clip = VideoFileClip(
             os.path.abspath('Main/') + "\\" + vidName)
